@@ -1,7 +1,6 @@
 #include <Ethernet.h>
 #include <SPI.h>
 
-
 byte mac[] = {0x00, 0x29, 0xB9, 0xFB, 0xE2, 0x57};
 byte ip[] = {192, 168, 25, 36};
 byte gateway[] = {192, 168, 25};
@@ -12,7 +11,6 @@ EthernetServer server(port);
 int speedSerial = 9600;
 int sizeString = 80;
 String stringInput = String(sizeString);
-
 
 unsigned long previousMillis = 0;
 long lastDebounceTime = 0;
@@ -71,7 +69,6 @@ int Pin39State = HIGH; // LUZ PIA
 int Pin68State = HIGH; // exautor BIG
 int Pin69State = HIGH; // exaustor PEQ
 
-
 //dimmers
 int Pin2 = 2;   // lareira down - verde com papel
 int Pin3 = 3;   // lareira up - verde
@@ -126,8 +123,6 @@ int Pin49 = 49;// rele 30 -
 int Pin68 = 68;// rele 31 -
 int Pin69 = 69;// rele 32 -
 
-
-
 /**
  * this is the setup
  */
@@ -137,7 +132,6 @@ void setup()
 	Serial.begin(speedSerial);
 	Ethernet.begin(mac, ip, gateway, subnet);
 	server.begin();
-
 
 /**
  * PINMODE
@@ -150,7 +144,6 @@ void setup()
 //	pinMode(Pin17, INPUT_PULLUP); //
 //	pinMode(Pin18, INPUT_PULLUP); //
 //	pinMode(Pin19, INPUT_PULLUP); //
-
 
 	// rele solid state
 	pinMode(Pin62, OUTPUT); // WORKLIGHTS
@@ -213,9 +206,6 @@ void setup()
 	pinMode(Pin68, OUTPUT); // rele 31 -
 	pinMode(Pin69, OUTPUT); // rele 32 -
 
-
-
-
 /**
  * DIGITALWRITE
  */
@@ -273,10 +263,6 @@ void setup()
 
 }
 
-
-
-
-
 // FUNCOES
 
 void acende_patio()
@@ -295,7 +281,6 @@ void acende_patio()
 	delay(2000);
 }
 
-
 void apaga_patio()
 {
 	digitalWrite(Pin23, HIGH); // laguinho
@@ -310,8 +295,6 @@ void apaga_patio()
 	delay(1000);
 	digitalWrite(Pin36, HIGH); // deck main
 }
-
-
 
 void acende_dicroics()
 {
@@ -354,29 +337,21 @@ void apaga_dicroics()
 	digitalWrite(Pin4, LOW);
 }
 
-
-
-
 void loop()
 {
 	//DEBOUNCE
 
+  //TODO: Create a function and remove duplicated code below
 	//Pin54 E Pin40 - FILL
 	int reading54 = digitalRead(Pin54);
-	if (reading54 != lastInputPin54State)
-	{
+	if (reading54 != lastInputPin54State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading54 != inputPin54State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) {
+		if (reading54 != inputPin54State) {
 			inputPin54State = reading54;
-
-			if (inputPin54State == LOW)
-			{
+			if (inputPin54State == LOW) {
 				Pin40State = !Pin40State;
 			}
 		}
@@ -385,24 +360,16 @@ void loop()
 	digitalWrite(Pin40, Pin40State);
 	lastInputPin54State = reading54;
 
-
-
 	//Pin55 E Pin29  -  HIDRO
 	int reading55 = digitalRead(Pin55);
-	if (reading55 != lastInputPin55State)
-	{
+	if (reading55 != lastInputPin55State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading55 != inputPin55State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) {
+		if (reading55 != inputPin55State) 	{
 			inputPin55State = reading55;
-
-			if (inputPin55State == LOW)
-			{
+			if (inputPin55State == LOW) {
 				Pin29State = !Pin29State;
 			}
 		}
@@ -411,25 +378,16 @@ void loop()
 	digitalWrite(Pin29, Pin29State);
 	lastInputPin55State = reading55;
 
-
-
-
 	//Pin56 E Pin38 - LUZ HIDRO
 	int reading56 = digitalRead(Pin56);
-	if (reading56 != lastInputPin56State)
-	{
+	if (reading56 != lastInputPin56State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading56 != inputPin56State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) 	{
+		if (reading56 != inputPin56State) 	{
 			inputPin56State = reading56;
-
-			if (inputPin56State == LOW)
-			{
+			if (inputPin56State == LOW) {
 				Pin38State = !Pin38State;
 			}
 		}
@@ -438,25 +396,16 @@ void loop()
 	digitalWrite(Pin38, Pin38State);
 	lastInputPin56State = reading56;
 
-
-
-
 	//Pin57 E Pin66 - LAVANDERIA
 	int reading57 = digitalRead(Pin57);
-	if (reading57 != lastInputPin57State)
-	{
+	if (reading57 != lastInputPin57State){
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading57 != inputPin57State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) {
+		if (reading57 != inputPin57State) {
 			inputPin57State = reading57;
-
-			if (inputPin57State == LOW)
-			{
+			if (inputPin57State == LOW) {
 				Pin66State = !Pin66State;
 			}
 		}
@@ -466,24 +415,16 @@ void loop()
 	lastInputPin57State = reading57;
 
 
-
-
 	// Pin58 E Pin67 - DICROICAS BANHEIRO
 	int reading58 = digitalRead(Pin58);
-	if (reading58 != lastInputPin58State)
-	{
+	if (reading58 != lastInputPin58State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading58 != inputPin58State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) 	{
+		if (reading58 != inputPin58State) 	{
 			inputPin58State = reading58;
-
-			if (inputPin58State == LOW)
-			{
+			if (inputPin58State == LOW) {
 				Pin67State = !Pin67State;
 			}
 		}
@@ -491,26 +432,19 @@ void loop()
 
 	//	digitalWrite(Pin67, Pin67State);
 	lastInputPin58State = reading58;
-
-
+  //TODO: Should call digitalWrite()?
 
 
 	//Pin59 E Pin39 - LUZ PIA
 	int reading59 = digitalRead(Pin59);
-	if (reading59 != lastInputPin59State)
-	{
+	if (reading59 != lastInputPin59State) 	{
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading59 != inputPin59State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) {
+		if (reading59 != inputPin59State) {
 			inputPin59State = reading59;
-
-			if (inputPin59State == LOW)
-			{
+			if (inputPin59State == LOW) 	{
 				Pin39State = !Pin39State;
 			}
 		}
@@ -519,59 +453,40 @@ void loop()
 
 	//	digitalWrite(Pin39, Pin39State);
 	lastInputPin59State = reading59;
-
-
-
-
-
+	//TODO: Should call digitalWrite()?
 
 	// RF chamando welcomeHome
 	// Pin63
 	int reading63 = digitalRead(Pin63);
-	if (reading63 != lastInputPin63State)
-	{
+	if (reading63 != lastInputPin63State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
+	if ((millis() - lastDebounceTime) > debounceDelay) {
 		if (reading63 != inputPin63State)
 		{
 			inputPin63State = reading63;
-			if (inputPin63State == LOW)
-			{
-			acende_patio();
-			acende_dicroics();
-			delay(60000);
-			apaga_patio();
+			if (inputPin63State == LOW) {
+				acende_patio();
+				acende_dicroics();
+				delay(60000);
+				apaga_patio();
 			}
 		}
 	}
-
 	lastInputPin63State = reading63;
-
-
-
-
 
 
 	//Pin64 E Pin68 - exaustor Big
 	int reading64 = digitalRead(Pin64);
-	if (reading64 != lastInputPin64State)
-	{
+	if (reading64 != lastInputPin64State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading64 != inputPin64State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) {
+		if (reading64 != inputPin64State) {
 			inputPin64State = reading64;
-
-			if (inputPin64State == LOW)
-			{
+			if (inputPin64State == LOW) {
 				Pin68State = !Pin68State;
 			}
 		}
@@ -581,25 +496,16 @@ void loop()
 	//	digitalWrite(Pin68, Pin68State);
 	lastInputPin64State = reading64;
 
-
-
-
 	// Pin65 E Pin69 - exaustor peq
 	int reading65 = digitalRead(Pin65);
-	if (reading65 != lastInputPin65State)
-	{
+	if (reading65 != lastInputPin65State) {
 		lastDebounceTime = millis();
 	}
 
-	if ((millis() - lastDebounceTime) > debounceDelay)
-	{
-
-		if (reading65 != inputPin65State)
-		{
+	if ((millis() - lastDebounceTime) > debounceDelay) {
+		if (reading65 != inputPin65State) {
 			inputPin65State = reading65;
-
-			if (inputPin65State == LOW)
-			{
+			if (inputPin65State == LOW) {
 				Pin69State = !Pin69State;
 			}
 		}
@@ -609,21 +515,13 @@ void loop()
 	lastInputPin65State = reading65;
 
 
-
-
-
-
-	// CABECALHO
-
+	// HEADER
 	EthernetClient client = server.available();
-	if (client)
-	{
+	if (client) {
 		boolean currentLineIsBlank = true;
 		stringInput = "";
 
-		if (client.connected())
-		{
-
+		if (client.connected()) {
 			client.println("HTTP/1.1 200 OK");
 			//client.println("Server:Arduino");
             client.println("Access-Control-Allow-Origin: *");
@@ -633,30 +531,18 @@ void loop()
 			//client.println("Content-Type:text/xml");
 			client.println();
 
-			while (client.available())
-			{
+			while (client.available()) {
 				char c = client.read();
-
-				if(stringInput.length() < sizeString)
-				{
+				if(stringInput.length() < sizeString) {
 					stringInput.concat(c);
-
 				}
 
-				if (c == '\n' && currentLineIsBlank)
-				{
-
+				if (c == '\n' && currentLineIsBlank) {
 					client.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-
 					client.println("<automation>");
 
-
-
-
 					// 	MONTA
-
 					// Pin14 - estado (aberto ou fechado) do portao
-
 					client.print("<Pin>");
 					client.print("<digitalPin>");
 					client.print(Pin14);
@@ -673,14 +559,13 @@ void loop()
 					client.print("</Pin>");
 
 
-
-
 					/**
 					 * (para os dimmers nao precisa a logica invertida
 					 * na leitura do estado usando o ponto de exclamacao
 					 * como ha para os reles)
 					 */
 
+          //TODO: Create a function to remove duplicated code below to create XML
 					// Pin9 - HIGH LINE (cabo dicroicas sala) UP
 					client.print("<Pin>");
 					client.print("<namePin>HI LINE UP</namePin>");
@@ -692,7 +577,6 @@ void loop()
 					client.print("</Estado>");
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
-
 
 					// Pin8 - HIGH LINE (cabo dicroicas sala) DOWN
 					client.print("<Pin>");
@@ -706,7 +590,6 @@ void loop()
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
 
-
 					// P3  LAREIRA UP DIMMER
 					client.print("<Pin>");
 					client.print("<namePin>LAREIRA UP</namePin>");
@@ -718,7 +601,6 @@ void loop()
 					client.print("</Estado>");
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
-
 
 					// P2 - LAREIRA DOWN DIMMER
 					client.print("<Pin>");
@@ -732,7 +614,6 @@ void loop()
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
 
-
 					// Pin7 - LUSTRE UP DIMMER
 					client.print("<Pin>");
 					client.print("<namePin>LUSTRE UP</namePin>");
@@ -744,7 +625,6 @@ void loop()
 					client.print("</Estado>");
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
-
 
 					// Pin6 - LUSTRE DOWN DIMMER
 					client.print("<Pin>");
@@ -758,8 +638,6 @@ void loop()
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
 
-
-
 					// Pin5 - QUARTO UP DIMMER
 					client.print("<Pin>");
 					client.print("<namePin>QUARTO UP</namePin>");
@@ -771,7 +649,6 @@ void loop()
 					client.print("</Estado>");
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
-
 
 					// Pin4 - QUARTO DOWN DIMMER
 					client.print("<Pin>");
@@ -785,7 +662,6 @@ void loop()
 					client.print("<dimerizavel>1</dimerizavel>");
 					client.print("</Pin>");
 
-
 					// Pin60 - CHAMA FUNCAO SLOWSLEEP DIMMER QUARTO
 					client.print("<Pin>");
 					client.print("<namePin>SLOWSLEEP</namePin>");
@@ -797,7 +673,6 @@ void loop()
 					client.print("</Estado>");
 					client.print("</Pin>");
 
-
 					// Pin62 - RELE SOLIDO - WORK LIGHTS
 					client.print("<Pin>");
 					client.print("<namePin>WORK LIGHTS</namePin>");
@@ -808,8 +683,6 @@ void loop()
 					client.print(digitalRead(Pin62));
 					client.print("</Estado>");
 					client.print("</Pin>");
-
-
 
 //  PLACA UM----------------------------------------------------------------//
 
@@ -1240,11 +1113,9 @@ void loop()
 					break;
 				}
 
-				if (c == '\n')
-				{
+				if (c == '\n') {
 					Serial.print(stringInput);
 					Serial.println();
-
 					if(stringInput.indexOf("GET") != -1)
 					{
 
@@ -1254,13 +1125,11 @@ void loop()
 						//RELE ESTADO SOLIDO
 
 						// Pin62 - RELE SOLIDO - WORKING LIGHTS
-						if (stringInput.indexOf("PIN62=ON") != -1)
-						{
+						if (stringInput.indexOf("PIN62=ON") != -1) {
 							digitalWrite(Pin62, HIGH);
 						}
 
-						if (stringInput.indexOf("PIN62=OFF") != -1)
-						{
+						if (stringInput.indexOf("PIN62=OFF") != -1) {
 							digitalWrite(Pin62, LOW);
 						}
 
@@ -1268,6 +1137,7 @@ void loop()
 //DIMMERS --------------------------------------------------------
 						//para os dimmers, ON = HIGH
 
+            //TODO: Create function to remove duplicated code below
 						// Pin2 - lareira down
 						if (stringInput.indexOf("PIN2=ON") != -1)
 						{
@@ -1910,8 +1780,7 @@ void loop()
 					stringInput = "";
 				}
 
-				else if (c != '\r')
-				{
+				else if (c != '\r') 	{
 					currentLineIsBlank = false;
 				}
 			}
